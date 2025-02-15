@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { api_url } from "./config";
 
 const UploadAndQuery = () => {
   const [files, setFiles] = useState([]); 
@@ -8,10 +9,11 @@ const UploadAndQuery = () => {
   const [selectedFile, setSelectedFile] = useState(null); 
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(null); 
-
+  
+  console.log('api_url', api_url)
   const fetchFiles = async () => {
     try {
-      const res = await axios.get("https://uploadquery-backend.onrender.com/uploads");
+      const res = await axios.get(api_url+'/uploads');
       setFiles(res.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des fichiers :", error);
@@ -51,7 +53,7 @@ const UploadAndQuery = () => {
     setError(null);
 
     try {
-      const res = await axios.post("https://uploadquery-backend.onrender.com/query", {
+      const res = await axios.post(api_url+'/query', {
         question,
         fileId: selectedFile._id,
       });
@@ -72,7 +74,7 @@ const UploadAndQuery = () => {
     formData.append("file", file);
 
     try {
-      await axios.post("https://uploadquery-backend.onrender.com/uploads/upload", formData, {
+      await axios.post(api_url+'/uploads/upload', formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
