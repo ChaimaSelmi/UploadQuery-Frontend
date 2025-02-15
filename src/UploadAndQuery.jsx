@@ -11,7 +11,7 @@ const UploadAndQuery = () => {
 
   const fetchFiles = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/uploads");
+      const res = await axios.get("https://uploadquery-backend.onrender.com/uploads");
       setFiles(res.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des fichiers :", error);
@@ -51,7 +51,7 @@ const UploadAndQuery = () => {
     setError(null);
 
     try {
-      const res = await axios.post("http://localhost:3001/query", {
+      const res = await axios.post("https://uploadquery-backend.onrender.com/query", {
         question,
         fileId: selectedFile._id,
       });
@@ -72,7 +72,7 @@ const UploadAndQuery = () => {
     formData.append("file", file);
 
     try {
-      await axios.post("http://localhost:3001/uploads/upload", formData, {
+      await axios.post("https://uploadquery-backend.onrender.com/uploads/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
